@@ -23,6 +23,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+public protocol MessageError: Error {
+    /// A human-readable error message.
+    var message: String { get }
+}
+
 public protocol DescriptiveError: Error, CustomStringConvertible {
     /// A human-readable error message.
     var message: String { get }
