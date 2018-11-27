@@ -33,37 +33,6 @@ extension RangeReplaceableCollection {
     }
 }
 
-extension Collection {
-    public var randomIndex: Index {
-        return index(startIndex, offsetBy: Random.number(0 ..< count))
-    }
-
-    public var randomElement: Element {
-        return self[randomIndex]
-    }
-}
-
-//extension Array {
-//
-//    /// Fisher–Yates shuffle
-//    /// http://datagenetics.com/blog/november42014/index.html
-//    public var shuffled: [Element] {
-//        var result = self
-//        let hi = count - 1
-//        for a in 0 ..< hi {
-//            let b = Random.number(a + 1 ..< count)
-//            result.swapAt(a, b)
-//        }
-//        return result
-//    }
-//
-//    public func appending(_ newElement: Element) -> Array {
-//        var s = self
-//        s.append(newElement)
-//        return s
-//    }
-//}
-
 extension Sequence {
     public func flatJoined(separator: String = "") -> String {
         let a = compactMap { (i) -> String? in
