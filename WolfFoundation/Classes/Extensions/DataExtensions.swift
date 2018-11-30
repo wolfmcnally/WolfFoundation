@@ -46,3 +46,7 @@ extension Data: Serializable {
 public func printDataAsString(_ data: Data) {
     print(String(data: data, encoding: .utf8)!)
 }
+
+public func reversed(_ data: Data) -> Data {
+    return Data(data.reversed())
+}
