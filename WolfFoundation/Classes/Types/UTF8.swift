@@ -1,8 +1,8 @@
 //
-//  DataExtensions.swift
+//  UTF8.swift
 //  WolfFoundation
 //
-//  Created by Wolf McNally on 6/8/16.
+//  Created by Wolf McNally on 11/29/18.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +22,19 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import Foundation
-import WolfPipe
-
-// Support the Serializable protocol used for caching
-
-extension Data: Serializable {
-    public typealias ValueType = Data
-
-    public func serialize() -> Data {
-        return self
-    }
-
-    public static func deserialize(from data: Data) throws -> Data {
-        return data
-    }
-
-    public init(bytes: Slice<Data>) {
-        self.init(bytes: Array(bytes))
-    }
+/// Converts a string to a data
+///
+/// Compatible with the pipe operator.
+public func toUTF8(_ s: String) -> Data {
+    return s.data(using: .utf8)!
 }
 
-public func printDataAsString(_ data: Data) {
-    print(String(data: data, encoding: .utf8)!)
+/// Converts a data to a string
+///
+/// Compatible with the pipe operator.
+public func fromUTF8(_ d: Data) throws -> String {
+    guard let string = String(data: d, encoding: .utf8) else {
+        throw WolfFoundationError("Invalid UTF8 encoding")
+    }
+    return string
 }

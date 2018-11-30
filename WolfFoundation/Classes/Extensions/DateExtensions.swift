@@ -89,6 +89,28 @@ extension Date {
     }
 }
 
+extension String {
+    func padded(to count: Int, onRight: Bool = false, with character: Character = " ") -> String {
+        let startCount = self.count
+        let padCount = count - startCount
+        guard padCount > 0 else { return self }
+        let pad = String(repeating: String(character), count: padCount)
+        return onRight ? (self + pad) : (pad + self)
+    }
+
+    static func padded(to count: Int, onRight: Bool = false, with character: Character = " ") -> (String) -> String {
+        return { $0.padded(to: count, onRight: onRight, with: character) }
+    }
+
+    func paddedWithZeros(to count: Int) -> String {
+        return padded(to: count, onRight: false, with: "0")
+    }
+
+    static func paddedWithZeros(to count: Int) -> (String) -> String {
+        return { $0.paddedWithZeros(to: count) }
+    }
+}
+
 extension Date {
     public init(iso8601: String) throws {
         if let date = type(of: self).iso8601Formatter.date(from: iso8601) {

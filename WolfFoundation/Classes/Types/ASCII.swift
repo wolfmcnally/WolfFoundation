@@ -1,8 +1,8 @@
 //
-//  DataExtensions.swift
+//  ASCII.swift
 //  WolfFoundation
 //
-//  Created by Wolf McNally on 6/8/16.
+//  Created by Wolf McNally on 11/29/18.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +22,23 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import Foundation
-import WolfPipe
-
-// Support the Serializable protocol used for caching
-
-extension Data: Serializable {
-    public typealias ValueType = Data
-
-    public func serialize() -> Data {
-        return self
+extension StringProtocol {
+    public var ascii: [Int8] {
+        return unicodeScalars.compactMap { $0.isASCII ? Int8($0.value) : nil }
     }
 
-    public static func deserialize(from data: Data) throws -> Data {
-        return data
+    public var asciiCharacter: Int8? {
+        return ascii.first
     }
 
-    public init(bytes: Slice<Data>) {
-        self.init(bytes: Array(bytes))
+    public var asciiByte: UInt8 {
+        return UInt8(asciiCharacter ?? 0)
     }
 }
 
-public func printDataAsString(_ data: Data) {
-    print(String(data: data, encoding: .utf8)!)
+extension Character {
+    public var ascii: Int8? {
+        let a = self.unicodeScalars.first!
+        return a.isASCII ? Int8(a.value) : nil
+    }
 }

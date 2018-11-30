@@ -1,8 +1,8 @@
 //
-//  DataExtensions.swift
+//  JSON.swift
 //  WolfFoundation
 //
-//  Created by Wolf McNally on 6/8/16.
+//  Created by Wolf McNally on 11/29/18.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +22,27 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import Foundation
+//import WolfStrings
 import WolfPipe
 
-// Support the Serializable protocol used for caching
-
-extension Data: Serializable {
-    public typealias ValueType = Data
-
-    public func serialize() -> Data {
-        return self
-    }
-
-    public static func deserialize(from data: Data) throws -> Data {
-        return data
-    }
-
-    public init(bytes: Slice<Data>) {
-        self.init(bytes: Array(bytes))
+public func toJSONWithOutputFormatting<T>(_ outputFormatting: JSONEncoder.OutputFormatting) -> (_ value: T) throws -> Data where T: Encodable {
+    return { value in
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = outputFormatting
+        return try encoder.encode(value)
     }
 }
 
-public func printDataAsString(_ data: Data) {
-    print(String(data: data, encoding: .utf8)!)
+public func toJSON<T>(_ value: T) throws -> Data where T: Encodable {
+    return try value |> toJSONWithOutputFormatting([])
+}
+
+public func toJSONStringWithOutputFormatting<T>(_ outputFormatting: JSONEncoder.OutputFormatting) -> (_ value: T) throws -> String where T: Encodable {
+    return { value in
+        try value |> toJSONWithOutputFormatting(outputFormatting) |> fromUTF8
+    }
+}
+
+public func toJSONString<T>(_ value: T) throws -> String where T: Encodable {
+    return try value |> toJSONStringWithOutputFormatting([])
 }

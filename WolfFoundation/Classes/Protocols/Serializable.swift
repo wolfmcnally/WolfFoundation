@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 import Foundation
-import WolfStrings
+//import WolfStrings
 import WolfPipe
 
 public protocol Serializable {

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'WolfFoundation'
-    s.version          = '1.0.3'
+    s.version          = '1.0.4'
     s.summary          = 'A variety of types and conveniences built on or extending Foundation.'
 
     s.homepage         = 'https://github.com/wolfmcnally/WolfFoundation'
@@ -20,5 +20,4 @@ Pod::Spec.new do |s|
 
     s.dependency 'WolfNumerics'
     s.dependency 'WolfPipe'
-    s.dependency 'WolfStrings'
 end
