@@ -1,9 +1,8 @@
 //
-//  DescriptiveError.swift
+//  MessageError.swift
 //  WolfFoundation
 //
 //  Created by Wolf McNally on 12/3/16.
-//  Copyright © 2016 Wolf McNally.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,17 +25,4 @@
 public protocol MessageError: Error {
     /// A human-readable error message.
     var message: String { get }
-}
-
-public protocol DescriptiveError: Error, CustomStringConvertible {
-    /// A human-readable error message.
-    var message: String { get }
-
-    /// A numeric code for the error.
-    var code: Int { get }
-
-    /// A non-user-facing identifier used for automated UI testing
-    var identifier: String { get }
-
-    var isCancelled: Bool { get }
 }

@@ -24,7 +24,7 @@
 
 import Foundation
 
-public struct WolfFoundationError: Error {
+public struct WolfFoundationError: MessageError {
     public let message: String
 
     public init(_ message: String) {

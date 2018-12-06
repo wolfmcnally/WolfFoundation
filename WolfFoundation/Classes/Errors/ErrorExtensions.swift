@@ -3,7 +3,6 @@
 //  WolfFoundation
 //
 //  Created by Wolf McNally on 7/3/15.
-//  Copyright © 2015 Wolf McNally.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,28 +26,23 @@ import Foundation
 
 public typealias ErrorBlock = (Error) -> Void
 
-// Conforms NSError to the Error protocol.
-extension NSError: DescriptiveError {
+extension NSError: CodedError {
     public var message: String {
         return localizedDescription
     }
-
-    public var identifier: String {
-        return "NSError(\(code))"
-    }
 }
 
-extension NSError {
-    public var isNotConnectedToInternet: Bool {
-        return domain == NSURLErrorDomain && code == NSURLErrorNotConnectedToInternet
-    }
-
-    public var isCancelled: Bool {
-        return domain == NSURLErrorDomain && code == NSURLErrorCancelled
-    }
-
-    // Thrown by poorly-bridged Objective-C frameworks.
-    public var isNilError: Bool {
-        return domain == "Foundation._GenericObjCError" && code == 0
-    }
-}
+//extension NSError {
+//    public var isNotConnectedToInternet: Bool {
+//        return domain == NSURLErrorDomain && code == NSURLErrorNotConnectedToInternet
+//    }
+//
+//    public var isCancelled: Bool {
+//        return domain == NSURLErrorDomain && code == NSURLErrorCancelled
+//    }
+//
+//    // Thrown by poorly-bridged Objective-C frameworks.
+//    public var isNilError: Bool {
+//        return domain == "Foundation._GenericObjCError" && code == 0
+//    }
+//}

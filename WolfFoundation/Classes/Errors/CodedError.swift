@@ -1,9 +1,8 @@
 //
-//  GeneralError.swift
+//  CodedError.swift
 //  WolfFoundation
 //
-//  Created by Wolf McNally on 7/8/15.
-//  Copyright © 2015 Wolf McNally.
+//  Created by Wolf McNally on 12/5/18.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,29 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-/// Represents a non-specific error result.
-public struct GeneralError: DescriptiveError {
-    /// A human-readable error message
-    public var message: String
-
-    /// A numeric code for the error
-    public var code: Int
-
-    public init(message: String, code: Int = 1) {
-        self.message = message
-        self.code = code
-    }
-
-    public var identifier: String {
-        return "GeneralError(\(code))"
-    }
-
-    public let isCancelled = false
+public protocol CodedError: MessageError {
+    /// A numeric code for the error.
+    var code: Int { get }
 }
 
-/// Provides string conversion for GeneralError.
-extension GeneralError: CustomStringConvertible {
-    public var description: String {
-        return "GeneralError(\(message), code: \(code))"
+extension CodedError {
+    public var message: String {
+        return String(code)
     }
 }

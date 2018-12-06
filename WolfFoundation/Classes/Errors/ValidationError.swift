@@ -3,7 +3,6 @@
 //  WolfFoundation
 //
 //  Created by Wolf McNally on 2/2/16.
-//  Copyright © 2016 Wolf McNally.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,19 +22,17 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-public struct ValidationError: DescriptiveError {
+public struct ValidationError: MessageError {
     public let isCancelled = false
 
     public let message: String
     public let violation: String
     public let source: String?
-    public let code: Int
 
-    public init(message: String, violation: String, source: String? = nil, code: Int = 1) {
+    public init(message: String, violation: String, source: String? = nil) {
         self.message = message
         self.violation = violation
         self.source = source
-        self.code = code
     }
 
     public var identifier: String {
