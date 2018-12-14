@@ -22,17 +22,26 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+import WolfPipe
+
+public enum HexTag { }
+public typealias Hex = Tagged<HexTag, String>
+
+public func tagHex(_ string: String) -> Hex {
+    return Hex(rawValue: string)
+}
+
 private let hexDigits = Array("0123456789abcdef".utf16)
 
 /// Encodes the data as hexadecimal.
-public func toHex(_ data: Data) -> String {
+public func toHex(_ data: Data) -> Hex {
     var chars: [unichar] = []
     chars.reserveCapacity(2 * data.count)
     for byte in data {
         chars.append(hexDigits[Int(byte / 16)])
         chars.append(hexDigits[Int(byte % 16)])
     }
-    return String(utf16CodeUnits: chars, count: chars.count)
+    return String(utf16CodeUnits: chars, count: chars.count) |> tagHex
 }
 
 private func split(string: String, by size: Int) -> [String] {
@@ -49,7 +58,8 @@ private func split(string: String, by size: Int) -> [String] {
 /// Decodes the hexadecimal string to data.
 ///
 /// Throws if the string is not valid hexidecimal format.
-public func fromHex(_ string: String) throws -> Data {
+public func toData(_ hex: Hex) throws -> Data {
+    let string = hex.rawValue
     let charactersCount = string.count
 
     var data: Data

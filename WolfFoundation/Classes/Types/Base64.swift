@@ -1,8 +1,8 @@
 //
-//  DataExtensions.swift
+//  Base64.swift
 //  WolfFoundation
 //
-//  Created by Wolf McNally on 6/8/16.
+//  Created by Wolf McNally on 9/22/18.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,39 +22,26 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import Foundation
 import WolfPipe
 
-// Support the Serializable protocol used for caching
+public enum Base64Tag { }
+public typealias Base64 = Tagged<Base64Tag, String>
 
-extension Data: Serializable {
-    public typealias ValueType = Data
-
-    public func serialize() -> Data {
-        return self
-    }
-
-    public static func deserialize(from data: Data) throws -> Data {
-        return data
-    }
-
-    public init(bytes: Slice<Data>) {
-        self.init(bytes: Array(bytes))
-    }
+public func tagBase64(_ string: String) -> Base64 {
+    return Base64(rawValue: string)
 }
 
-public func printDataAsString(_ data: Data) {
-    print(String(data: data, encoding: .utf8)!)
+/// Encodes the data as base-64.
+public func toBase64(_ data: Data) -> Base64 {
+    return data.base64EncodedString() |> tagBase64
 }
 
-public func reversed(_ data: Data) -> Data {
-    return Data(data.reversed())
-}
-
-public func append(_ appendedData: Data) -> (_ data: Data) -> Data {
-    return { data in
-        var varData = data
-        varData.append(appendedData)
-        return varData
+/// Decodes the base-64 string to data
+///
+/// Throws if the string is not base-64 format.
+public func toData(_ base64: Base64) throws -> Data {
+    guard let data = Data(base64Encoded: base64.rawValue) else {
+        throw WolfFoundationError("Invalid Base64 encoding.")
     }
+    return data
 }
