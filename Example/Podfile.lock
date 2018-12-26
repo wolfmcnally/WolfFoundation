@@ -1,9 +1,9 @@
 PODS:
-  - WolfFoundation (1.0.5):
+  - WolfFoundation (2.0.0):
     - WolfNumerics
     - WolfPipe
-  - WolfNumerics (2.0.2)
-  - WolfPipe (1.0.7)
+  - WolfNumerics (3.0.0)
+  - WolfPipe (1.1.0)
 
 DEPENDENCIES:
   - WolfFoundation (from `../`)
@@ -18,9 +18,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  WolfFoundation: c2c5deba2563175fc440a5c16724fb80ae493ab8
-  WolfNumerics: a63222a42b4c3835e1a1cb489a71abb890f0d910
-  WolfPipe: 1a2cbb23efb14833647a2adcc034468bf82a289e
+  WolfFoundation: 667429024146bfa45f76899aea3eea1398ff9581
+  WolfNumerics: 073642f01957a5602df21531e8b2fd31e8b92042
+  WolfPipe: 5d5633fb37d8a524e326ad9cf24420f0971c8235
 
 PODFILE CHECKSUM: c110c277a2eb7f60d0054d9bfc752d51fd58bbf4
 

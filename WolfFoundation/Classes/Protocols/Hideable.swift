@@ -54,3 +54,27 @@ extension Hideable {
         isHidden = condition
     }
 }
+
+public func hide<H: Hideable>(_ h: H) -> H {
+    h.hide()
+    return h
+}
+
+public func show<H: Hideable>(_ h: H) -> H {
+    h.show()
+    return h
+}
+
+public func hideIf<H: Hideable>(_ condition: Bool) -> (_ h: H) -> H {
+    return { h in
+        h.hideIf(condition)
+        return h
+    }
+}
+
+public func showIf<H: Hideable>(_ condition: Bool) -> (_ h: H) -> H {
+    return { h in
+        h.showIf(condition)
+        return h
+    }
+}

@@ -179,3 +179,27 @@ extension Date {
         }
     }
 }
+
+public func addSeconds(_ s: TimeInterval) -> (_ date: Date) -> Date {
+    return { date in
+        return date.addingTimeInterval(s)
+    }
+}
+
+public func addMinutes(_ m: Double) -> (_ date: Date) -> Date {
+    return { date in
+        return date.addingTimeInterval(oneMinute * m)
+    }
+}
+
+public func addHours(_ h: Double) -> (_ date: Date) -> Date {
+    return { date in
+        return date.addingTimeInterval(oneHour * h)
+    }
+}
+
+public func addDays(_ d: Double) -> (_ date: Date) -> Date {
+    return { date in
+        return date.addingTimeInterval(oneDay * d)
+    }
+}
