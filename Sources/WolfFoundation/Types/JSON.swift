@@ -1,5 +1,5 @@
 //
-//  UTF8.swift
+//  JSON.swift
 //  WolfFoundation
 //
 //  Created by Wolf McNally on 11/29/18.
@@ -22,19 +22,28 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-/// Converts a string to a data
-///
-/// Compatible with the pipe operator.
-public func toUTF8(_ s: String) -> Data {
-    return s.data(using: .utf8)!
+//import WolfStrings
+import Foundation
+import WolfPipe
+
+public func toJSONWithOutputFormatting<T>(_ outputFormatting: JSONEncoder.OutputFormatting) -> (_ value: T) throws -> Data where T: Encodable {
+    return { value in
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = outputFormatting
+        return try encoder.encode(value)
+    }
 }
 
-/// Converts a data to a string
-///
-/// Compatible with the pipe operator.
-public func fromUTF8(_ d: Data) throws -> String {
-    guard let string = String(data: d, encoding: .utf8) else {
-        throw WolfFoundationError("Invalid UTF8 encoding")
+public func toJSON<T>(_ value: T) throws -> Data where T: Encodable {
+    return try value |> toJSONWithOutputFormatting([])
+}
+
+public func toJSONStringWithOutputFormatting<T>(_ outputFormatting: JSONEncoder.OutputFormatting) -> (_ value: T) throws -> String where T: Encodable {
+    return { value in
+        try value |> toJSONWithOutputFormatting(outputFormatting) |> fromUTF8
     }
-    return string
+}
+
+public func toJSONString<T>(_ value: T) throws -> String where T: Encodable {
+    return try value |> toJSONStringWithOutputFormatting([])
 }

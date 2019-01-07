@@ -1,9 +1,8 @@
 //
-//  ViewController.swift
+//  UTF8.swift
 //  WolfFoundation
 //
-//  Created by Wolf McNally on 09/15/2018.
-//  Copyright © 2018 Wolf McNally.
+//  Created by Wolf McNally on 11/29/18.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import UIKit
+import Foundation
 
-class ViewController: UIViewController {
+/// Converts a string to a data
+///
+/// Compatible with the pipe operator.
+public func toUTF8(_ s: String) -> Data {
+    return s.data(using: .utf8)!
+}
+
+/// Converts a data to a string
+///
+/// Compatible with the pipe operator.
+public func fromUTF8(_ d: Data) throws -> String {
+    guard let string = String(data: d, encoding: .utf8) else {
+        throw WolfFoundationError("Invalid UTF8 encoding")
+    }
+    return string
 }

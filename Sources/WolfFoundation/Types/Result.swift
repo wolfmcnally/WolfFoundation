@@ -22,6 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+import Foundation
+
 /// A type-erased error which wraps an arbitrary error instance. This should be
 /// useful for generic contexts.
 ///

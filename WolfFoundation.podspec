@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'WolfFoundation'
-    s.version          = '2.2.0'
+    s.version          = '2.2.1'
     s.summary          = 'A variety of types and conveniences built on or extending Foundation.'
 
     s.homepage         = 'https://github.com/wolfmcnally/WolfFoundation'
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
     s.author           = { 'Wolf McNally' => 'wolf@wolfmcnally.com' }
     s.source           = { :git => 'https://github.com/wolfmcnally/WolfFoundation.git', :tag => s.version.to_s }
 
-    s.source_files = 'WolfFoundation/Classes/**/*'
+    s.source_files = 'Sources/WolfFoundation/**/*'
 
     s.swift_version = '4.2'
 

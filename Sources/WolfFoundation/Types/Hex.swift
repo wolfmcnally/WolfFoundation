@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 import WolfPipe
+import Foundation
 
 public enum HexTag { }
 public typealias Hex = Tagged<HexTag, String>

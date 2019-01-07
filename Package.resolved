@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "WolfNumerics",
+        "repositoryURL": "https://github.com/wolfmcnally/WolfNumerics",
+        "state": {
+          "branch": null,
+          "revision": "60752d0dfca058ee2f84f4d254069196b2b975e7",
+          "version": "3.0.2"
+        }
+      },
+      {
+        "package": "WolfPipe",
+        "repositoryURL": "https://github.com/wolfmcnally/WolfPipe",
+        "state": {
+          "branch": null,
+          "revision": "327eb418ae978c3ca3a5bcb81652e38a8c29c7ac",
+          "version": "1.1.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

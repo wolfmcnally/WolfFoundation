@@ -1,8 +1,8 @@
 //
-//  JSON.swift
+//  Base64.swift
 //  WolfFoundation
 //
-//  Created by Wolf McNally on 11/29/18.
+//  Created by Wolf McNally on 9/22/18.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +22,27 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-//import WolfStrings
 import WolfPipe
+import Foundation
 
-public func toJSONWithOutputFormatting<T>(_ outputFormatting: JSONEncoder.OutputFormatting) -> (_ value: T) throws -> Data where T: Encodable {
-    return { value in
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = outputFormatting
-        return try encoder.encode(value)
+public enum Base64Tag { }
+public typealias Base64 = Tagged<Base64Tag, String>
+
+public func tagBase64(_ string: String) -> Base64 {
+    return Base64(rawValue: string)
+}
+
+/// Encodes the data as base-64.
+public func toBase64(_ data: Data) -> Base64 {
+    return data.base64EncodedString() |> tagBase64
+}
+
+/// Decodes the base-64 string to data
+///
+/// Throws if the string is not base-64 format.
+public func toData(_ base64: Base64) throws -> Data {
+    guard let data = Data(base64Encoded: base64.rawValue) else {
+        throw WolfFoundationError("Invalid Base64 encoding.")
     }
-}
-
-public func toJSON<T>(_ value: T) throws -> Data where T: Encodable {
-    return try value |> toJSONWithOutputFormatting([])
-}
-
-public func toJSONStringWithOutputFormatting<T>(_ outputFormatting: JSONEncoder.OutputFormatting) -> (_ value: T) throws -> String where T: Encodable {
-    return { value in
-        try value |> toJSONWithOutputFormatting(outputFormatting) |> fromUTF8
-    }
-}
-
-public func toJSONString<T>(_ value: T) throws -> String where T: Encodable {
-    return try value |> toJSONStringWithOutputFormatting([])
+    return data
 }
