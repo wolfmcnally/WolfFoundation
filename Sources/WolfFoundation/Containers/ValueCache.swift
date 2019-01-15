@@ -22,55 +22,53 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-public final class ValueCache<N: Hashable> {
-    private typealias `Self` = ValueCache
-    public typealias NameType = N
-    private typealias Dict = [NameType: Any]
-    private var d: Dict
+public final class ValueCache<Name: Hashable> {
+    private typealias Dict = [Name: Any]
+    private var dict: Dict
 
     public init() {
-        d = Dict()
+        dict = Dict()
     }
 
     private init(d: Dict) {
-        self.d = d
+        self.dict = d
     }
 
     public func copy() -> ValueCache {
-        return Self.init(d: d)
+        return .init(d: dict)
     }
 
-    public func set<T>(_ key: NameType, to value: T) {
-        d[key] = value
+    public func set<T>(_ key: Name, to value: T) {
+        dict[key] = value
     }
 
-    public func get<T>(_ key: NameType) -> T? {
-        return d[key] as? T
+    public func get<T>(_ key: Name) -> T? {
+        return dict[key] as? T
     }
 
-    public func get<T>(_ key: NameType, with update: () -> T) -> T {
-        if let value = d[key] {
+    public func get<T>(_ key: Name, with update: () -> T) -> T {
+        if let value = dict[key] {
             return value as! T
         } else {
             let value = update()
-            d[key] = value
+            dict[key] = value
             return value
         }
     }
 
-    public func get<T>(_ key: NameType, _ update: @autoclosure () -> T) -> T {
+    public func get<T>(_ key: Name, _ update: @autoclosure () -> T) -> T {
         return get(key, with: update)
     }
 
-    public func remove(_ key: NameType) {
-        d[key] = nil
+    public func remove(_ key: Name) {
+        dict[key] = nil
     }
 
     public func removeAll() {
-        d.removeAll()
+        dict.removeAll()
     }
 
-    public subscript<T>(key: NameType) -> T? {
+    public subscript<T>(key: Name) -> T? {
         get { return get(key) }
 
         set {
@@ -80,5 +78,9 @@ public final class ValueCache<N: Hashable> {
                 remove(key)
             }
         }
+    }
+
+    public subscript<T>(key: Name, update: @autoclosure () -> T) -> T {
+        return get(key, update)
     }
 }

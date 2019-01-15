@@ -164,7 +164,7 @@ extension Date {
 extension Date {
     public init?(naturalLanguage s: String) {
         let type: NSTextCheckingResult.CheckingType = .date
-        let detector = try! NSDataDetector(types: type.rawValue)
+        let detector = try! NSDataDetector(types: type®)
         let length = (s as NSString).length
         let range = NSRange(location: 0, length: length)
         guard let match = detector.firstMatch(in: s, options: .reportCompletion, range: range) else {

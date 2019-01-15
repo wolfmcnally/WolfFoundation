@@ -32,13 +32,13 @@ public struct Tagged<Tag, RawValue> {
     }
 
     public func map<B>(_ f: (RawValue) -> B) -> Tagged<Tag, B> {
-        return .init(rawValue: f(self.rawValue))
+        return .init(rawValue: f(self®))
     }
 }
 
 extension Tagged: CustomStringConvertible {
     public var description: String {
-        return String(describing: self.rawValue)
+        return String(describing: self®)
     }
 }
 
@@ -47,7 +47,7 @@ extension Tagged: RawRepresentable {
 
 extension Tagged: CustomPlaygroundDisplayConvertible {
     public var playgroundDescription: Any {
-        return self.rawValue
+        return self®
     }
 }
 
@@ -55,7 +55,7 @@ extension Tagged: CustomPlaygroundDisplayConvertible {
 
 extension Tagged: Comparable where RawValue: Comparable {
     public static func < (lhs: Tagged, rhs: Tagged) -> Bool {
-        return lhs.rawValue < rhs.rawValue
+        return lhs® < rhs®
     }
 }
 
@@ -73,7 +73,7 @@ extension Tagged: Encodable where RawValue: Encodable {
 
 extension Tagged: Equatable where RawValue: Equatable {
     public static func == (lhs: Tagged, rhs: Tagged) -> Bool {
-        return lhs.rawValue == rhs.rawValue
+        return lhs® == rhs®
     }
 }
 
@@ -144,37 +144,37 @@ extension Tagged: Numeric where RawValue: Numeric {
     }
 
     public var magnitude: RawValue.Magnitude {
-        return self.rawValue.magnitude
+        return self®.magnitude
     }
 
     public static func + (lhs: Tagged<Tag, RawValue>, rhs: Tagged<Tag, RawValue>) -> Tagged<Tag, RawValue> {
-        return self.init(rawValue: lhs.rawValue + rhs.rawValue)
+        return self.init(rawValue: lhs® + rhs®)
     }
 
     public static func += (lhs: inout Tagged<Tag, RawValue>, rhs: Tagged<Tag, RawValue>) {
-        lhs.rawValue += rhs.rawValue
+        lhs.rawValue += rhs®
     }
 
     public static func * (lhs: Tagged, rhs: Tagged) -> Tagged {
-        return self.init(rawValue: lhs.rawValue * rhs.rawValue)
+        return self.init(rawValue: lhs® * rhs®)
     }
 
     public static func *= (lhs: inout Tagged, rhs: Tagged) {
-        lhs.rawValue *= rhs.rawValue
+        lhs.rawValue *= rhs®
     }
 
     public static func - (lhs: Tagged, rhs: Tagged) -> Tagged<Tag, RawValue> {
-        return self.init(rawValue: lhs.rawValue - rhs.rawValue)
+        return self.init(rawValue: lhs® - rhs®)
     }
 
     public static func -= (lhs: inout Tagged<Tag, RawValue>, rhs: Tagged<Tag, RawValue>) {
-        lhs.rawValue -= rhs.rawValue
+        lhs.rawValue -= rhs®
     }
 }
 
 extension Tagged: Hashable where RawValue: Hashable {
     public var hashValue: Int {
-        return self.rawValue.hashValue
+        return self®.hashValue
     }
 }
 

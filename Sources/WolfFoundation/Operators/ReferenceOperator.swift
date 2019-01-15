@@ -35,6 +35,24 @@ public protocol Reference {
 ///
 postfix operator ®
 
-public postfix func ® <T: Reference>(rhs: T) -> T.ReferentType {
-    return rhs.referent
+public postfix func ® <T: Reference>(lhs: T) -> T.ReferentType {
+    return lhs.referent
+}
+
+public postfix func ® <T: RawRepresentable>(lhs: T) -> T.RawValue {
+    return lhs.rawValue
+}
+
+postfix operator ®?
+
+public postfix func ®? <T: RawRepresentable>(lhs: T?) -> T.RawValue? {
+    if let t = lhs {
+        return t.rawValue
+    } else {
+        return nil
+    }
+}
+
+public postfix func ®? <T: RawRepresentable>(lhs: T) -> T.RawValue? {
+    return lhs.rawValue
 }

@@ -22,11 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-//import WolfStrings
 import Foundation
 import WolfPipe
 
-public func toJSONWithOutputFormatting<T>(_ outputFormatting: JSONEncoder.OutputFormatting) -> (_ value: T) throws -> Data where T: Encodable {
+public func toJSON<T: Encodable>(outputFormatting: JSONEncoder.OutputFormatting) -> (_ value: T) throws -> Data {
     return { value in
         let encoder = JSONEncoder()
         encoder.outputFormatting = outputFormatting
@@ -34,16 +33,28 @@ public func toJSONWithOutputFormatting<T>(_ outputFormatting: JSONEncoder.Output
     }
 }
 
-public func toJSON<T>(_ value: T) throws -> Data where T: Encodable {
-    return try value |> toJSONWithOutputFormatting([])
-}
-
-public func toJSONStringWithOutputFormatting<T>(_ outputFormatting: JSONEncoder.OutputFormatting) -> (_ value: T) throws -> String where T: Encodable {
+public func toJSONString<T: Encodable>(outputFormatting: JSONEncoder.OutputFormatting) -> (_ value: T) throws -> String {
     return { value in
-        try value |> toJSONWithOutputFormatting(outputFormatting) |> fromUTF8
+        try value |> toJSON(outputFormatting: outputFormatting) |> fromUTF8
     }
 }
 
+public func toJSON<T>(_ value: T) throws -> Data where T: Encodable {
+    return try value |> toJSON(outputFormatting: [])
+}
+
 public func toJSONString<T>(_ value: T) throws -> String where T: Encodable {
-    return try value |> toJSONStringWithOutputFormatting([])
+    return try value |> toJSONString(outputFormatting: [])
+}
+
+public func fromJSON<T: Decodable>(_ t: T.Type) -> (_ data: Data) throws -> T {
+    return { data in
+        return try JSONDecoder().decode(t.self, from: data)
+    }
+}
+
+public func fromJSONString<T: Decodable>(_ t: T.Type) -> (_ string: String) throws -> T {
+    return { string in
+        return try string |> toUTF8 |> fromJSON(t)
+    }
 }

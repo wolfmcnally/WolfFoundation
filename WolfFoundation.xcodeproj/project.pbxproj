@@ -1304,8 +1304,8 @@
          isa = "PBXGroup";
          children = (
             "WolfFoundation::WolfFoundation::Product",
-            "WolfNumerics::WolfNumerics::Product",
-            "WolfPipe::WolfPipe::Product"
+            "WolfPipe::WolfPipe::Product",
+            "WolfNumerics::WolfNumerics::Product"
          );
          name = "Products";
          path = "";

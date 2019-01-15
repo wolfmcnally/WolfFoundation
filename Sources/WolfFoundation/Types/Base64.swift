@@ -41,7 +41,7 @@ public func toBase64(_ data: Data) -> Base64 {
 ///
 /// Throws if the string is not base-64 format.
 public func toData(_ base64: Base64) throws -> Data {
-    guard let data = Data(base64Encoded: base64.rawValue) else {
+    guard let data = Data(base64Encoded: base64®) else {
         throw WolfFoundationError("Invalid Base64 encoding.")
     }
     return data

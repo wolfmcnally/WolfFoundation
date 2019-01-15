@@ -60,7 +60,7 @@ private func split(string: String, by size: Int) -> [String] {
 ///
 /// Throws if the string is not valid hexidecimal format.
 public func toData(_ hex: Hex) throws -> Data {
-    let string = hex.rawValue
+    let string = hex®
     let charactersCount = string.count
 
     var data: Data
@@ -88,4 +88,8 @@ public func toData(_ hex: Hex) throws -> Data {
     }
 
     return data
+}
+
+public func dataLiteral(_ string: String) -> Data {
+    return try! string |> tagHex |> toData
 }
