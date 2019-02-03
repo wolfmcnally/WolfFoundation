@@ -1121,7 +1121,7 @@
             "OBJ_70"
          );
          name = "WolfPipe";
-         path = ".build/checkouts/WolfPipe-2998164209408846974/Sources/WolfPipe";
+         path = ".build/checkouts/WolfPipe--7459179668006615683/Sources/WolfPipe";
          sourceTree = "SOURCE_ROOT";
       };
       "OBJ_64" = {
@@ -1172,7 +1172,7 @@
          isa = "PBXFileReference";
          explicitFileType = "sourcecode.swift";
          name = "Package.swift";
-         path = "/Users/ironwolf/Dropbox/DevProjects/WolfFoundation/.build/checkouts/WolfPipe-2998164209408846974/Package.swift";
+         path = "/Users/ironwolf/Dropbox/DevProjects/WolfFoundation/.build/checkouts/WolfPipe--7459179668006615683/Package.swift";
          sourceTree = "<group>";
       };
       "OBJ_72" = {
@@ -1204,7 +1204,7 @@
             "OBJ_87"
          );
          name = "WolfNumerics";
-         path = ".build/checkouts/WolfNumerics--2477990600629169887/Sources/WolfNumerics";
+         path = ".build/checkouts/WolfNumerics--5378674256610364601/Sources/WolfNumerics";
          sourceTree = "SOURCE_ROOT";
       };
       "OBJ_74" = {
@@ -1297,7 +1297,7 @@
          isa = "PBXFileReference";
          explicitFileType = "sourcecode.swift";
          name = "Package.swift";
-         path = "/Users/ironwolf/Dropbox/DevProjects/WolfFoundation/.build/checkouts/WolfNumerics--2477990600629169887/Package.swift";
+         path = "/Users/ironwolf/Dropbox/DevProjects/WolfFoundation/.build/checkouts/WolfNumerics--5378674256610364601/Package.swift";
          sourceTree = "<group>";
       };
       "OBJ_89" = {

@@ -161,6 +161,7 @@ extension Date {
     }
 }
 
+#if !os(Linux)
 extension Date {
     public init?(naturalLanguage s: String) {
         let type: NSTextCheckingResult.CheckingType = .date
@@ -179,6 +180,7 @@ extension Date {
         }
     }
 }
+#endif
 
 public func addSeconds(_ s: TimeInterval) -> (_ date: Date) -> Date {
     return { date in
