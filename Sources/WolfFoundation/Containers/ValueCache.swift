@@ -81,6 +81,6 @@ public final class ValueCache<Name: Hashable> {
     }
 
     public subscript<T>(key: Name, update: @autoclosure () -> T) -> T {
-        return get(key, update)
+        return get(key, update())
     }
 }

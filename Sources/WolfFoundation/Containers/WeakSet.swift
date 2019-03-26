@@ -71,7 +71,7 @@ public struct WeakSet<T> where T: AnyObject, T: Hashable {
     @discardableResult public mutating func remove(_ member: Element) -> Element? {
         let hash = member.hashValue
         var entriesAtHash = validEntriesAtHash(hash)
-        if let index = entriesAtHash.index(where: { $0.element == member }) {
+        if let index = entriesAtHash.firstIndex(where: { $0.element == member }) {
             let entryAtIndex = entriesAtHash[index]
             entriesAtHash.remove(at: index)
             if entriesAtHash.isEmpty {

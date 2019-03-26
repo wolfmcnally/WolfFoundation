@@ -39,7 +39,7 @@ extension Data: Serializable {
     }
 
     public init(bytes: Slice<Data>) {
-        self.init(bytes: Array(bytes))
+        self.init(Array(bytes))
     }
 }
 

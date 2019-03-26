@@ -32,13 +32,13 @@ public struct Tagged<Tag, RawValue> {
     }
 
     public func map<B>(_ f: (RawValue) -> B) -> Tagged<Tag, B> {
-        return .init(rawValue: f(self®))
+        return .init(rawValue: f(self.rawValue))
     }
 }
 
 extension Tagged: CustomStringConvertible {
     public var description: String {
-        return String(describing: self®)
+        return String(describing: self.rawValue)
     }
 }
 
@@ -47,7 +47,7 @@ extension Tagged: RawRepresentable {
 
 extension Tagged: CustomPlaygroundDisplayConvertible {
     public var playgroundDescription: Any {
-        return self®
+        return self.rawValue
     }
 }
 
@@ -55,7 +55,7 @@ extension Tagged: CustomPlaygroundDisplayConvertible {
 
 extension Tagged: Comparable where RawValue: Comparable {
     public static func < (lhs: Tagged, rhs: Tagged) -> Bool {
-        return lhs® < rhs®
+        return lhs.rawValue < rhs.rawValue
     }
 }
 
@@ -73,7 +73,7 @@ extension Tagged: Encodable where RawValue: Encodable {
 
 extension Tagged: Equatable where RawValue: Equatable {
     public static func == (lhs: Tagged, rhs: Tagged) -> Bool {
-        return lhs® == rhs®
+        return lhs.rawValue == rhs.rawValue
     }
 }
 
@@ -135,48 +135,90 @@ extension Tagged: LosslessStringConvertible where RawValue: LosslessStringConver
     }
 }
 
-extension Tagged: Numeric where RawValue: Numeric {
-    public typealias Magnitude = RawValue.Magnitude
+extension Tagged: AdditiveArithmetic where RawValue: AdditiveArithmetic {
+    public static var zero: Tagged {
+        return self.init(rawValue: .zero)
+    }
 
+    public static func + (lhs: Tagged, rhs: Tagged) -> Tagged {
+        return self.init(rawValue: lhs.rawValue + rhs.rawValue)
+    }
+
+    public static func += (lhs: inout Tagged, rhs: Tagged) {
+        lhs.rawValue += rhs.rawValue
+    }
+
+    public static func - (lhs: Tagged, rhs: Tagged) -> Tagged {
+        return self.init(rawValue: lhs.rawValue - rhs.rawValue)
+    }
+
+    public static func -= (lhs: inout Tagged, rhs: Tagged) {
+        lhs.rawValue -= rhs.rawValue
+    }
+}
+
+extension Tagged: Numeric where RawValue: Numeric {
     public init?<T>(exactly source: T) where T: BinaryInteger {
         guard let rawValue = RawValue(exactly: source) else { return nil }
         self.init(rawValue: rawValue)
     }
 
     public var magnitude: RawValue.Magnitude {
-        return self®.magnitude
-    }
-
-    public static func + (lhs: Tagged<Tag, RawValue>, rhs: Tagged<Tag, RawValue>) -> Tagged<Tag, RawValue> {
-        return self.init(rawValue: lhs® + rhs®)
-    }
-
-    public static func += (lhs: inout Tagged<Tag, RawValue>, rhs: Tagged<Tag, RawValue>) {
-        lhs.rawValue += rhs®
+        return self.rawValue.magnitude
     }
 
     public static func * (lhs: Tagged, rhs: Tagged) -> Tagged {
-        return self.init(rawValue: lhs® * rhs®)
+        return self.init(rawValue: lhs.rawValue * rhs.rawValue)
     }
 
     public static func *= (lhs: inout Tagged, rhs: Tagged) {
-        lhs.rawValue *= rhs®
-    }
-
-    public static func - (lhs: Tagged, rhs: Tagged) -> Tagged<Tag, RawValue> {
-        return self.init(rawValue: lhs® - rhs®)
-    }
-
-    public static func -= (lhs: inout Tagged<Tag, RawValue>, rhs: Tagged<Tag, RawValue>) {
-        lhs.rawValue -= rhs®
+        lhs.rawValue *= rhs.rawValue
     }
 }
 
 extension Tagged: Hashable where RawValue: Hashable {
-    public var hashValue: Int {
-        return self®.hashValue
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(self.rawValue)
     }
 }
 
 extension Tagged: SignedNumeric where RawValue: SignedNumeric {
+}
+
+// Commenting these out for Joe.
+//
+// https://twitter.com/jckarter/status/985375396601282560
+//
+//extension Tagged: ExpressibleByArrayLiteral where RawValue: ExpressibleByArrayLiteral {
+//  public typealias ArrayLiteralElement = RawValue.ArrayLiteralElement
+//
+//  public init(arrayLiteral elements: ArrayLiteralElement...) {
+//    let f = unsafeBitCast(
+//      RawValue.init(arrayLiteral:) as (ArrayLiteralElement...) -> RawValue,
+//      to: (([ArrayLiteralElement]) -> RawValue).self
+//    )
+//
+//    self.init(rawValue: f(elements))
+//  }
+//}
+//
+//extension Tagged: ExpressibleByDictionaryLiteral where RawValue: ExpressibleByDictionaryLiteral {
+//  public typealias Key = RawValue.Key
+//  public typealias Value = RawValue.Value
+//
+//  public init(dictionaryLiteral elements: (Key, Value)...) {
+//    let f = unsafeBitCast(
+//      RawValue.init(dictionaryLiteral:) as ((Key, Value)...) -> RawValue,
+//      to: (([(Key, Value)]) -> RawValue).self
+//    )
+//
+//    self.init(rawValue: f(elements))
+//  }
+//}
+
+// MARK: - Coerce
+extension Tagged {
+    public func coerced<Tag2>(to type: Tag2.Type) -> Tagged<Tag2, RawValue> {
+        return unsafeBitCast(self, to: Tagged<Tag2, RawValue>.self)
+    }
 }
