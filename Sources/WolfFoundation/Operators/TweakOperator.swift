@@ -41,16 +41,18 @@ prefix operator ‡
 
 import UIKit
 
-public prefix func ‡(view: UIView) {
-    view.translatesAutoresizingMaskIntoConstraints = false
+@discardableResult public prefix func ‡<T: UIView> (rhs: T) -> T {
+    rhs.translatesAutoresizingMaskIntoConstraints = false
+    return rhs
 }
 
 #elseif canImport(AppKit)
 
 import AppKit
 
-public prefix func ‡(view: NSView) {
-    view.translatesAutoresizingMaskIntoConstraints = false
+@discardableResult public prefix func ‡<T: NSView> (rhs: T) -> T {
+    rhs.translatesAutoresizingMaskIntoConstraints = false
+    return rhs
 }
 
 #endif
