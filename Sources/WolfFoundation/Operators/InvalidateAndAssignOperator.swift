@@ -34,7 +34,7 @@ public func ◊= <T: Invalidatable>(lhs: inout T, rhs: @autoclosure () -> T) {
     lhs = rhs()
 }
 
-public func ◊= <T: Invalidatable>(lhs: inout T!, rhs: @autoclosure () -> T) {
+public func ◊= <T: Invalidatable>(lhs: inout T!, rhs: @autoclosure () -> T?) {
     lhs?.invalidate()
     lhs = rhs()
 }
