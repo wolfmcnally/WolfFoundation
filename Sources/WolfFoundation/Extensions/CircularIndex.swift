@@ -24,27 +24,24 @@
 
 import Foundation
 
-public func makeCircularIndex(at index: Int, count: Int) -> Int {
-    guard count > 0 else {
-        return 0
-    }
-
+@inlinable public func makeCircularIndex(at index: Int, count: Int) -> Int {
+    guard count > 0 else { return 0 }
     let i = index % count
     return i >= 0 ? i : i + count
 }
 
 extension Collection {
-    public func circularIndex(at index: Int) -> Index {
+    @inlinable public func circularIndex(at index: Int) -> Index {
         return self.index(startIndex, offsetBy: makeCircularIndex(at: index, count: count))
     }
 
-    public func element(atCircularIndex index: Int) -> Element {
+    @inlinable public func element(atCircularIndex index: Int) -> Element {
         return self[circularIndex(at: index)]
     }
 }
 
 extension MutableCollection {
-    public mutating func replaceElement(atCircularIndex index: Int, withElement element: Element) {
+    @inlinable public mutating func replaceElement(atCircularIndex index: Int, withElement element: Element) {
         self[circularIndex(at: index)] = element
     }
 }
