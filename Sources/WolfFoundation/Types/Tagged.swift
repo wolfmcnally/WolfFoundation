@@ -61,13 +61,15 @@ extension Tagged: Comparable where RawValue: Comparable {
 
 extension Tagged: Decodable where RawValue: Decodable {
     public init(from decoder: Decoder) throws {
-        self.init(rawValue: try .init(from: decoder))
+        let container = try decoder.singleValueContainer()
+        self.init(rawValue: try container.decode(RawValue.self))
     }
 }
 
 extension Tagged: Encodable where RawValue: Encodable {
     public func encode(to encoder: Encoder) throws {
-        try rawValue.encode(to: encoder)
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
     }
 }
 
