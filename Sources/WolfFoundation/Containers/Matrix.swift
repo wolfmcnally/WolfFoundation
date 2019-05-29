@@ -38,7 +38,7 @@ public class Matrix<T> {
         columnsCount = 0
     }
 
-    public func object(atPosition position: Position) -> ValueType? {
+    private func get(at position: Position) -> ValueType? {
         guard position.row < rowsCount else {
             return nil
         }
@@ -51,7 +51,7 @@ public class Matrix<T> {
         return row[position.column]
     }
 
-    public func set(object value: ValueType?, atPosition position: Position) {
+    private func set(object value: ValueType?, at position: Position) {
         while rowsCount <= position.row {
             rows.append(RowType())
         }
@@ -94,5 +94,23 @@ public class Matrix<T> {
                 }
             }
         }
+    }
+
+    public func fill(from values: [[ValueType]]) {
+        for (row, rowObjects) in values.enumerated() {
+            for (column, object) in rowObjects.enumerated() {
+                set(object: object, at: .init(column: column, row: row))
+            }
+        }
+    }
+
+    public subscript(_ position: Position) -> ValueType? {
+        get { return get(at: position) }
+        set { set(object: newValue, at: position) }
+    }
+
+    public subscript(column: Int, row: Int) -> ValueType? {
+        get { return get(at: Position(column: column, row: row)) }
+        set { set(object: newValue, at: Position(column: column, row: row)) }
     }
 }
