@@ -71,3 +71,31 @@ extension Ordinal: CustomStringConvertible {
         return "(" + (a.map { String(describing: $0) }).joined(separator: ", ") + ")"
     }
 }
+
+extension Ordinal: Codable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        a = try container.decode([Int].self)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(a)
+    }
+}
+
+extension Ordinal {
+    public struct DecodeError: Error { }
+
+    public var encoded: String {
+        return try! String(data: JSONEncoder().encode(self), encoding: .utf8)!
+    }
+
+    public init(encoded: String) throws {
+        guard let data = encoded.data(using: .utf8) else {
+            throw DecodeError()
+        }
+
+        self = try JSONDecoder().decode(Ordinal.self, from: data)
+    }
+}

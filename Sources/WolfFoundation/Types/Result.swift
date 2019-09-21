@@ -49,9 +49,7 @@ public struct AnyError: Swift.Error {
 ///
 /// Based on https://github.com/antitypical/Result
 public enum NoError: Swift.Error, Equatable {
-    public static func == (lhs: NoError, rhs: NoError) -> Bool {
-        return true
-    }
+    public static func == (lhs: NoError, rhs: NoError) -> Bool { }
 }
 
 ///// Protocol used to constrain `tryMap` to `Result`s with compatible `Error`s.
