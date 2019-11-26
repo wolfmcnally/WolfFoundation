@@ -66,3 +66,42 @@ extension Array {
         }
     }
 }
+
+/// Return the permutations of an array.
+/// Algorithm by Nikolas Wirth.
+/// Adapted from: https://github.com/raywenderlich/swift-algorithm-club/tree/master/Combinatorics
+extension Array {
+    /// Call the closure with each permutation of the array, stopping if the closure returns `true`.
+    public func permute(_ f: ([Element]) -> Bool) {
+        permute(count - 1, f)
+    }
+
+    /// Call the closure with each permutation of the array.
+    public func permute(_ f: ([Element]) -> Void) {
+        permute(count - 1) {
+            f($0)
+            return false
+        }
+    }
+
+    /// Return all permutations of the array.
+    public var permutations: [[Element]] {
+        var result = [[Element]]()
+        permute { result.append($0) }
+        return result
+    }
+
+    private func permute(_ n: Int, _ f: ([Element]) -> Bool) {
+        if n == 0 {
+            if !f(self) { return }
+        } else {
+            var a = self
+            a.permute(n - 1, f)
+            for i in 0..<n {
+                a.swapAt(i, n)
+                a.permute(n - 1, f)
+                a.swapAt(i, n)
+            }
+        }
+    }
+}
